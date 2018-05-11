@@ -7,10 +7,15 @@ public class RowBrick
     private int rowNum = 5;
     private int columnNum = 10;
     private int nextStep = 3;
-    private List<List<GameObject>> bricktWallList = new List<List<GameObject>>(10);
+    public List<List<GameObject>> bricktWallList = new List<List<GameObject>>(10);
     private Vector3 originBrickPos = new Vector3(-10, 0, 0);
     private static RowBrick instance;
     private GameObject wall;
+
+    public void Init()
+    {
+        wall = GameManager.Instance.wall;
+    }
 
     public static RowBrick Instance
     {
@@ -29,22 +34,25 @@ public class RowBrick
     /// </summary>
     public void CreateWall(GameObject brickObject)
     {
-        wall = new GameObject();
-        wall.name = "Wall";
         for (int i = 0; i < rowNum; i++)
         {
             GameObject rowGO = new GameObject();
             rowGO.name = "Row " + i.ToString();
             rowGO.transform.parent = wall.transform;
             CreateARowBrick(brickObject, rowGO.transform);
-            wall.transform.position = new Vector3(wall.transform.position.x, wall.transform.position.y + nextStep, wall.transform.position.z);
+            MoveUpWall();
         }
+    }
+
+    private void MoveUpWall()
+    {
+        wall.transform.position = new Vector3(wall.transform.position.x, wall.transform.position.y + nextStep, wall.transform.position.z);
     }
 
     /// <summary>
     /// 生成一排Brick
     /// </summary>
-    private void CreateARowBrick(GameObject brickObject, Transform parent)
+    public void CreateARowBrick(GameObject brickObject, Transform parent)
     {
         List<GameObject> brickRowList = new List<GameObject>(5);
         for (int i = 0; i < columnNum; i++)
@@ -61,6 +69,7 @@ public class RowBrick
             go.transform.position = rowBrickPos;
         }
         bricktWallList.Add(brickRowList);
+        MoveUpWall();
     }
 
     /// <summary>

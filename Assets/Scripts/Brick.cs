@@ -31,27 +31,24 @@ public class Brick : MonoBehaviour
     {
         GetComponent<Collider>().isTrigger = true;
         SetBrickWidth();
+        transform.tag = brickType.ToString();
         switch (brickType)
         {
             case BrickType.Entiy:
                 GetComponent<Renderer>().material.color = Color.black;
-                transform.tag = BrickType.Entiy.ToString();
                 break;
 
             case BrickType.Hollow:
                 GetComponent<Renderer>().enabled = false;
                 //GetComponent<Renderer>().material.color = Color.white;
-                transform.tag = BrickType.Hollow.ToString();
                 break;
 
             case BrickType.Bad:
                 GetComponent<Renderer>().material.color = Color.red;
-                transform.tag = BrickType.Bad.ToString();
                 break;
 
             case BrickType.Undefined:
                 GetComponent<Renderer>().material.color = Color.yellow;
-                transform.tag = BrickType.Undefined.ToString();
                 break;
 
             default:

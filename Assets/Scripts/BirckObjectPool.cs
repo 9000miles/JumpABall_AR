@@ -53,13 +53,12 @@ public class BrickObjectPool
         GameObject go = FindUsableBrick(type);
         if (go != null)
         {
+            go.SetActive(true);
             go.GetComponent<Brick>().BrickType = type;
-            //go.transform.position = pos;
-            //go.transform.rotation = dir;
         }
         else
         {
-            go = GameObject.Instantiate(brickGO/*, pos, dir*/);
+            go = GameObject.Instantiate(brickGO);
             Brick brick = go.AddComponent<Brick>();
             brick.BrickType = type;
             brick.InitBrick();
